@@ -1,0 +1,141 @@
+<div class="srp-grid-container vh-100 srp-pl-0 srp-pr-0"
+  [attr.data-aue-resource]="'urn:aemconnection:/content/srp/global/' + languageCode + '/login/jcr:content/root/container/srp_container/login_details_copy'"
+  data-aue-type="component" [attr.data-aue-model]="'srp/components/common/login-details'"
+  data-aue-label="Login Page Details" data-aue-behavior="component">
+  <div class="srp-grid-row h-100">
+    <div class="srp-grid-col-8 p-0 d-flex flex-column">
+      <div class="image-container">
+        <img class="srp-login-bg" [src]="this.loginPageState().loginFields.mobileImage" alt="login background"
+          data-aue-prop="mobileImage" data-aue-type="media" data-aue-filter="dam" /><!-- NOSONAR -->
+        <div class="small-imgs">
+          <div class="leftHeaderLogo"><img [src]="this.loginPageState().loginFields.leftHeaderLogo"
+              [alt]="this.loginPageState().loginFields.leftHeaderLogoAlt" data-aue-prop="leftHeaderLogo"
+              data-aue-type="media" data-aue-filter="dam" /> </div>
+          <div class="rightHeaderLogo"><img [src]="this.loginPageState().loginFields.rightHeaderLogo"
+              [alt]="this.loginPageState().loginFields.rightHeaderLogoAlt" data-aue-prop="rightHeaderLogo"
+              data-aue-type="media" data-aue-filter="dam" /> </div>
+        </div>
+      </div>
+      <srp-footer></srp-footer>
+    </div>
+    <div class="srp-grid-col-4 login-right-container">
+      <div class="login-container login-container-scroll">
+        <mat-toolbar class="header-toolbar">
+          @if(languageForm) {
+          <form [formGroup]="languageForm">
+            <srp-search-select [options]="this.loginPageState().languages" displayProp="languageLabel"
+              valueProp="isoCode" [isObject]="true" variant="search" formControlName="language"
+              [defaultlabel]="(this.loginPageState().pageContent | contentFilter: LABELS.ENTER_LANG) || 'Enter min 1 char'"></srp-search-select>
+          </form>
+          }
+        </mat-toolbar>
+        <div class="d-flex srp-login-container">
+          <div class="d-flex flex-column align-items-center flex-grow-1 gap-3">
+            <div class="srp-login-logo">
+              <img [src]="this.loginPageState().loginFields.loginLogo"
+                [alt]="this.loginPageState().loginFields.loginLogoAlt" data-aue-prop="loginLogo" data-aue-type="media"
+                data-aue-filter="dam" />
+            </div>
+            <div class="login-content">
+              <div id="gigyaContainer"></div>
+              @if (!loadGigya()) { 
+              <span><b>{{ (this.loginPageState().pageContent| contentFilter: LABELS.LOGIN_TITLE) || 'Login'}}</b></span>
+              <form [formGroup]="userLoginForm" (ngSubmit)="onClick()">
+                <div style="display:flex; gap: 5px; flex-direction: column;">
+                  <srp-text-input
+                    [label]="this.loginPageState().pageContent | contentFilter: LABELS.USER_ID_PLACEHOLDER"
+                    variant="userId" suffixIcon="close" formControlName="userName"> </srp-text-input>
+                  <span></span>
+
+                  <srp-button color="primary" type="submit" class="srp-login-button" appearance="filled"
+                    variant="login"
+                    >{{
+                    (this.loginPageState().pageContent | contentFilter: LABELS.PROCEED_BTN) || 'Proceed'}}</srp-button>
+                </div>
+              </form>
+
+              } @if (showForgetPasswordLink()) {
+              }
+
+              @if(loginErrorMessage()) {
+              <span class="login-error">{{loginErrorMessage()}}</span>
+              }
+            </div>
+            <div class="loing-register-container">
+              <span
+                >{{
+                (this.loginPageState().pageContent | contentFilter: LABELS.FIRST_VISIT_TEXT) || 'First visit? Create an
+                account'}}</span><a class="srp-login-register-link" (click)="onRegisterClick()"
+                >{{
+                (this.loginPageState().pageContent | contentFilter: LABELS.REGISTER_TXT) || 'Register'}}</a>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="pb-4 login-footer">
+        <div class="srp-footer-wrapper">
+
+          <div class="list-item-container"
+            [attr.data-aue-resource]="'urn:aemconnection:/content/srp/global/' + languageCode + '/login/jcr:content/root/container/srp_container/login_details_copy'"
+            data-aue-type="component" [attr.data-aue-model]="'srp/components/common/login-onboard-links'"
+            data-aue-label="OnBoard Links" data-aue-behavior="component">
+            @if (showLinkListSignal()) {
+            <mat-nav-list data-aue-type="container" data-aue-filter="loginOnboardLinks" data-aue-prop="onBoardDocumentLinks">
+              @for (link of this.loginPageState().onBoardDocumentLinks; track link) {
+              <div
+                [attr.data-aue-resource]="'urn:aemconnection:/content/srp/global/' + languageCode + '/login/jcr:content/root/container/srp_container/login_details_copy/onBoardDocumentLinks/item' + $index"
+                data-aue-type="component" [attr.data-aue-model]="'srp/components/common/login-onboard-links/item'"
+                data-aue-label="OnBoard Item" data-aue-behavior="component">
+                <mat-list-item>
+                  <div class="d-flex align-items-center justify-content-between srp-align-center"
+                    (click)="onDocumentLinkClick($event, link.link, link.type, link.path, link.linkType)"
+                    (keydown.enter)="onDocumentLinkClick($event, link.link, link.type, link.path, link.linkType)">
+                    <span data-aue-prop="label" data-aue-type="text" data-aue-behavior="field">{{link.label}}</span>
+                    @if ((link.type || '').toLowerCase() === 'weblink') {
+                    <span data-aue-prop="link" data-aue-type="text" [attr.data-aue-value]="link.link"
+                      data-aue-behavior="field"></span>
+                    } @else {
+                    <span data-aue-prop="path" data-aue-type="media" data-aue-filter="dam"
+                      [attr.data-aue-value]="link.path" data-aue-behavior="field">
+                    </span>
+                    }
+                    <mat-icon class="option-image">open_in_new</mat-icon>
+                  </div>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+              </div>
+
+              }
+            </mat-nav-list>
+            }
+
+          </div>
+
+          <srp-button appearance="outlined" variant="link" (clicked)="toggleList()">
+            <div class="d-flex align-items-center justify-content-between">
+              <span>{{this.loginPageState().pageContent | contentFilter: LABELS.ON_BOARD_DOCUMENTATION }}</span>
+              <mat-icon>arrow_drop_up</mat-icon>
+            </div>
+          </srp-button>
+        </div>
+
+        <srp-button appearance="outlined" variant="link"
+          (clicked)="onReachLinkClick($event, this.loginPageState().reachLink.label)">
+          <div class="d-flex align-items-center justify-content-between w-100">
+            <span> {{ this.loginPageState().reachLink.label }} </span>
+            <mat-icon>open_in_new</mat-icon>
+          </div>
+        </srp-button>
+      </div>
+    </div>
+  </div>
+</div>
+@if(loading()) {
+<div class="spinner-container">
+  <div class="loading-spinner" id="page-loading-spinner">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+</div>
+}

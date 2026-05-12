@@ -1,0 +1,41 @@
+{
+  "groups": [
+    {
+      "title": "Global Components",
+      "id": "global",
+      "components": [
+        {
+          "id": "srp/components/common/footerlinks",
+          "title": "Footer Links",
+          "model": "srp/components/common/footerlinks",
+          "filter": "footerLink"
+        },
+        {
+          "id": "srp/components/common/footerlinks/item",
+          "title": "Footer Link Item",
+          "model": "srp/components/common/footerlinks/item"
+        },
+        {
+          "id": "srp/components/common/login-details",
+          "title": "Login Page Images",
+          "model": "srp/components/common/login-details",
+          "filter": "loginDetails"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "footerLink",
+      "components": [
+        "srp/components/common/footerlinks/item"
+      ]
+    },
+    {
+      "id": "loginDetails",
+      "components": [
+        "srp/components/common/login-details"
+      ]
+    }
+  ]
+}
