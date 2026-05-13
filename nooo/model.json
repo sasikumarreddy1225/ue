@@ -4,6 +4,21 @@
         "fields": [
             {
                 "component": "container",
+                "name": "labels",
+                "label": "Footer Labels",
+                "valueType": "string",
+                "multi": true,
+                "fields": [
+                    {
+                        "component": "text",
+                        "name": "label",
+                        "label": "Enter Label",
+                        "valueType": "string"
+                    }
+                ]
+            },
+            {
+                "component": "container",
                 "name": "footerLinks",
                 "label": "Footer Links",
                 "valueType": "string",
@@ -157,7 +172,15 @@
                         "component": "text",
                         "name": "linkType",
                         "label": "Enter Link Type",
-                        "valueType": "string"
+                        "valueType": "string",
+                        "condition": {
+                            "===": [
+                                {
+                                    "var": "type"
+                                },
+                                "webLink"
+                            ]
+                        }
                     }
                 ]
             }
@@ -224,7 +247,15 @@
                 "component": "text",
                 "name": "linkType",
                 "label": "Enter Link Type",
-                "valueType": "string"
+                "valueType": "string",
+                "condition": {
+                    "===": [
+                        {
+                            "var": "type"
+                        },
+                        "webLink"
+                    ]
+                }
             }
         ]
     }
