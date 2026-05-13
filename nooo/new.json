@@ -20,6 +20,17 @@
           "title": "Login Page Images",
           "model": "srp/components/common/login-details",
           "filter": "loginDetails"
+        },
+        {
+          "id": "srp/components/common/login-onboard-links",
+          "title": "Login Onboard Links",
+          "model": "srp/components/common/login-onboard-links",
+          "filter": "loginOnboardLinks"
+        },
+        {
+          "id": "srp/components/common/login-onboard-links/item",
+          "title": "Login Onboard Link Item",
+          "model": "srp/components/common/login-onboard-links/item"
         }
       ]
     }
@@ -35,6 +46,12 @@
       "id": "loginDetails",
       "components": [
         "srp/components/common/login-details"
+      ]
+    },
+    {
+      "id": "loginOnboardLinks",
+      "components": [
+        "srp/components/common/login-onboard-links/item"
       ]
     }
   ]
