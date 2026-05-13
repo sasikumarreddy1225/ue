@@ -93,10 +93,10 @@
                     (click)="onDocumentLinkClick($event, link.link, link.type, link.path, link.linkType)"
                     (keydown.enter)="onDocumentLinkClick($event, link.link, link.type, link.path, link.linkType)">
                     <span data-aue-prop="label" data-aue-type="text" data-aue-behavior="component">{{link.label}}</span>
-                    @if ((link.type || '').toLowerCase() === 'weblink') {
+                   @if (link.type === 'webLink') {
                     <span data-aue-prop="link" data-aue-type="text" [attr.data-aue-value]="link.link"
                       data-aue-behavior="field"></span>
-                    } @else if ((link.type || '').toLowerCase() === 'doclink') {
+                    } @else if (link.type === 'docLink') {
                     <span data-aue-prop="path" data-aue-type="media" data-aue-filter="dam"
                       [attr.data-aue-value]="link.path" data-aue-behavior="field">
                     </span>

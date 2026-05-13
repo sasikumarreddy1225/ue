@@ -142,6 +142,7 @@
                         "name": "path",
                         "label": "Select Document",
                         "valueType": "string",
+                        "renderCondition": true,
                         "condition": {
                             "===": [
                                 {
@@ -155,10 +156,11 @@
                         }
                     },
                     {
-                        "component": "text",
+                        "component": "url",
                         "name": "link",
                         "label": "Enter Link",
                         "valueType": "string",
+                        "renderCondition": true,
                         "condition": {
                             "===": [
                                 {
@@ -169,18 +171,16 @@
                         }
                     },
                     {
-                        "component": "text",
+                        "component": "select",
                         "name": "linkType",
-                        "label": "Enter Link Type",
+                        "label": "Select Target Tab",
                         "valueType": "string",
-                        "condition": {
-                            "===": [
-                                {
-                                    "var": "type"
-                                },
-                                "webLink"
-                            ]
-                        }
+                        "options": [
+                            {
+                                "name": "New Tab",
+                                "value": "newTab"
+                            }
+                        ]
                     }
                 ]
             }
@@ -217,6 +217,7 @@
                 "name": "path",
                 "label": "Select Document",
                 "valueType": "string",
+                "renderCondition": true,
                 "condition": {
                     "===": [
                         {
@@ -230,10 +231,11 @@
                 }
             },
             {
-                "component": "text",
+                "component": "url",
                 "name": "link",
                 "label": "Enter Link",
                 "valueType": "string",
+                "renderCondition": true,
                 "condition": {
                     "===": [
                         {
@@ -244,18 +246,16 @@
                 }
             },
             {
-                "component": "text",
+                "component": "select",
                 "name": "linkType",
-                "label": "Enter Link Type",
+                "label": "Select Target Tab",
                 "valueType": "string",
-                "condition": {
-                    "===": [
-                        {
-                            "var": "type"
-                        },
-                        "webLink"
-                    ]
-                }
+                "options": [
+                    {
+                        "name": "New Tab",
+                        "value": "newTab"
+                    }
+                ]
             }
         ]
     }
