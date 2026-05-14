@@ -1,0 +1,42 @@
+@if (groupedImages().length > 0) {
+  <div class="carousel-container">
+    <div class="carousel-slides" [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'">
+      @for (group of groupedImages(); track group; let gi = $index) {
+        <div class="carousel-slide"
+          [class.single]="group.length === 1">
+          @for (banner of group; track banner) {
+            <div class="image-wrapper">
+              @if (!failedImages.has(banner.image)) {
+                <img [src]="banner.image" alt="carousel" (error)="onImageError(banner.image)"
+                  (click)="openInNewTab(banner.link)" (keydown.enter)="openInNewTab(banner.link)" />
+              }
+              @if (failedImages.has(banner.image)) {
+                <div class="error-message">
+                  Failed to load please try again later
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+    <div class="controls-row">
+      <button class="nav prev" (click)="prev()">&#10094;</button>
+      <button class="nav next" (click)="next()">&#10095;</button>
+      <div class="indicators">
+        @for (_ of groupedImages(); track _; let i = $index) {
+          <span [class.active]="activeBar() === i" (click)="onBarClick(i)" (keydown.enter)="onBarClick(i)" (keydown.space)="onBarClick(i)" [attr.aria-label]="'Go to slide ' + (i + 1)">
+          </span>
+        }
+      </div>
+      <button class="nav play" (click)="toggleAutoSlide()">
+        @if (isAutoSliding()) {
+          <srp-icon icon="pause_circle" variant="outlined" color="#CA4F1C"></srp-icon>
+        }
+        @if (!isAutoSliding()) {
+          <srp-icon icon="play_circle" variant="outlined" color="#CA4F1C"></srp-icon>
+        }
+      </button>
+    </div>
+  </div>
+}
